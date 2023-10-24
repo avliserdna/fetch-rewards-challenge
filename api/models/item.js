@@ -3,7 +3,7 @@ const {Schema, model} = mongoose;
 
 const itemSchema = new Schema(
   {
-    receipt: {type: Schema.Types.ObjectId, ref: 'Receipt'},
+    receiptId: {type: Schema.Types.ObjectId, ref: 'Receipt'},
     shortDescription: {
       type: String,
       required: true

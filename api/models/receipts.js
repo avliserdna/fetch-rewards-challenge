@@ -12,8 +12,9 @@ const receiptSchema = new Schema(
       type: String,
       required: true,
       validate: {
-        validate: v =>!isNaN(new Date(v))
-        // Checks if its in YYYY/MM/DD format, denies post if it's not.
+        validate: v =>!isNaN(new Date(v)),
+        // Checks if its in YYYY/MM/DD format, denies post if it's not.,
+        message: props => `${props.value} is not in proper format.`
     }},
     purchaseTime: {
       type: String,
@@ -22,7 +23,7 @@ const receiptSchema = new Schema(
         validate: v => {
           let isValid = /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/.test(v)
           return isValid
-          // uses Regex to check if time is in proper time format. Checks for Military Time.
+          // uses Regex to check if time is in proper time format. Chec56ks for Military Time.
         },
         message: props => `${props.value} is not in proper format.`
     }
