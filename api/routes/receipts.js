@@ -13,22 +13,25 @@ router.post('/process', async (req,res) => {
       _id : new mongoose.Types.ObjectId(),
       retailer: req.body.retailer,
       purchaseDate: req.body.purchaseDate,
-      purchaseTime: req.body.purchaseTime
+      purchaseTime: req.body.purchaseTime,
+      total: req.body.total
     })
-
-    receipt.validate()
+// Receipt Blob here.
+   await receipt.validate() // Validate if receipt is valid, or send a 400.
     if (localStorage("receipts") === null || JSON.parse(localStorage("receipts")).length === 0) {
       localStorage("receipts", "[]")
     }
       receiptArray = JSON.parse(localStorage("receipts"))
       receiptArray.push(receipt)
       localStorage("receipts", JSON.stringify(receiptArray))
-
+// Checks if the receipts key in the localStorage is null. If it's null, we create an empty array
+// The data is then parsed from a string.
     items = req.body.items
-
+// Get the items from the request's body.
     if (localStorage("items") === null || JSON.parse(localStorage("receipts")).length === 0) {
       localStorage("items", "[]")
     }
+    // Same process as above.
     itemArray = JSON.parse(localStorage("items"))
     for (item of items) {
       const newItem = new Item({
@@ -37,14 +40,16 @@ router.post('/process', async (req,res) => {
         shortDescription: item.shortDescription,
         price: item.price
       })
-      newItem.validate()
+      await newItem.validate()
       itemArray.push(newItem)
+      // Because it's an array of items, we check if they all are valid, and attach the receiptId to simulate a join
     }
     localStorage("items", JSON.stringify(itemArray))
     res.status(200).json({id: receipt._id})
+    // Send back the receiptId
   }
   catch (err) {
-    res.status(400).json({description: `The receipt is invalid ${err}`})
+    res.status(400).json({description: `The receipt is invalid.`})
   }
 })
 

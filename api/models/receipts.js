@@ -30,7 +30,10 @@ const receiptSchema = new Schema(
     }
     },
     items: [{type: Schema.Types.ObjectId, ref: 'Item'}],
-    total: String,
+    total: {
+      type: String,
+      required: true
+    },
   },{
     collection: 'receipts' // Points to the Receipt Collection on Database
   }
