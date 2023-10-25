@@ -65,6 +65,7 @@ router.get('/:id/points', async (req, res) => {
     // Rule #1: 1 Point for every AlphaNumeric character in a retailer name.
     // Ex: Target = 6
   let receiptArray = JSON.parse(localStorage("receipts"));
+  // Look for all the receipts made in the instance
 
   let targetReceipt = receiptArray.find((receipt) => receipt._id === id)
 
@@ -84,6 +85,7 @@ if (Number(targetReceipt.total) % 0.25 === 0) points += 25
 // Rule #5: Check if the item.shortDescription is a multiple of 3, if it is multiple the price by 0.2 then round up.
   for (item of itemArray) {
     let desc = item.shortDescription.trim()
+    // Trim the desc to remove white space around the characters, and get an accurate count.
     if (desc.length % 3 === 0) {
       points =  Math.ceil(Number(item.price) * 0.2) + points
 
@@ -91,7 +93,9 @@ if (Number(targetReceipt.total) % 0.25 === 0) points += 25
   }
 // Rule #6: 6 Points, if the Day is odd.
 let dateArray = targetReceipt.purchaseDate.split("-")
+// Split the date to single out the YYYY-MM-DD format
 let targetDay = parseInt(dateArray[2], 10)
+// Parse the day into hexadecimal format, since in a split Array, the DD should be index of 2
 if (targetDay % 2) points += 6
 // Rule #7: 10 Points, if the time of purchase is after 2:00 but before 4:00 (So in between 2:00 and 4:00)
 let splitTime = targetReceipt.purchaseTime.split(":")
