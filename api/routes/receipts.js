@@ -109,7 +109,7 @@ res.status(200).json({points: points})
   }
 
   catch (err) {
-    res.status(400).json({description: `No receipt of ${req.params.id} found. ${err}`})
+    res.status(400).json({description: `No receipt found for that id.`})
   }
 })
 
