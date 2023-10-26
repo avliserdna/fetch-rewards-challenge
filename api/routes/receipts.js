@@ -33,6 +33,10 @@ router.post('/process', async (req,res) => {
     }
     // Same process as above.
     itemArray = JSON.parse(localStorage("items"))
+
+    if (itemArray.length === 0) {
+      throw new Error("The receipt is invalid.")
+    }
     for (item of items) {
       const newItem = new Item({
         _id: new mongoose.Types.ObjectId(),
