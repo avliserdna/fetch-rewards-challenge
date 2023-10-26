@@ -9,3 +9,4 @@ RUN npm install local-storage
 RUN npm install dotenv
 COPY . /api
 CMD ["npm", "start"]
+EXPOSE 9008
