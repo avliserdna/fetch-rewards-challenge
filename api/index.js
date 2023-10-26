@@ -15,7 +15,7 @@ const db = mongoose.connection
 db.on('error', (error) => console.error(error));
 db.once('open', () => console.log("Server is on."))
 app.use(express.json())
-const port = 9008
+const port = process.env.port
 
 // Router and Routes go here
 const receiptsRouter = require('./routes/receipts')
