@@ -26,7 +26,6 @@ const receiptSchema = new Schema(
           const days29 = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29]
           const calendar = {1: days31, 2:days29, 3: days31, 4: days30, 5:days31, 6:days30, 7:days31,8:days31, 9:days30, 10:days31, 11:days30, 12:days31}
 // Establish a calender map of each month, and get them by day. Anything not in YYYY-MM-DD format gets immediately rejected
-
           if (Number(valueArr[1]) === 2) {
             if (Number(valueArr[0]) % 4 === 0) {
               return calendar[2].includes(Number(valueArr[2]))
